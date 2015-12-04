@@ -6,7 +6,7 @@ import (
 	"text/template"
 )
 
-//go:generate go-bindata templates/*
+//go:generate go-bindata templates/...
 
 func main() {
 	f, _ := os.Create("app.yaml")
