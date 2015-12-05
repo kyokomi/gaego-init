@@ -9,6 +9,10 @@ import (
 	"text/template"
 )
 
+const (
+	entryDirPath = "templates/"
+)
+
 //go:generate go-bindata templates/...
 
 type Builder interface {
@@ -32,7 +36,7 @@ func (b *builder) Run() error {
 
 	names := AssetNames()
 	for _, name := range names {
-		execName := strings.Replace(name, "templates/", "", 1)
+		execName := strings.Replace(name, entryDirPath, "", 1)
 		execName = filepath.Join(b.AppName, execName)
 
 		fmt.Println(name)
