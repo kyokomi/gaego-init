@@ -1,12 +1,19 @@
-GOPATH=$(shell pwd)
+ROOT_GOPATH=$(shell pwd)
+VENDOR_GOPATH=$(shell pwd)/vendor
+GOPATH=$(VENDOR_GOPATH)
 
 install:
+	mkdir -p $(VENDOR_GOPATH)
+
+clean:
+	rm -rf $(VENDOR_GOPATH)
 
 run:
-	goapp serve app/app.yaml
+	goapp serve ./src
 
 test:
-	goapp test -v ./src/...
+	GOPATH=$(VENDOR_GOPATH):$(ROOT_GOPATH) goapp test -v ./src/...
 
-deploy:
-	goapp deploy app/app.yaml
+deploy: test
+	goapp deploy ./src
+
