@@ -3,7 +3,7 @@ init:
 build:
 	go generate
 	go build
-install:
+install: init
 	go generate
 	go install
 
