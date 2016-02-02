@@ -2,10 +2,6 @@
 
 set -x
 
-# test
-goapp get golang.org/x/tools/cmd/cover
-goapp get github.com/stretchr/testify
-
 # AppEngine
 
 goapp get google.golang.org/appengine

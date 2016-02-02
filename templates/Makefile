@@ -13,7 +13,7 @@ run:
 	goapp serve ./src
 
 test:
-	GOPATH=$(VENDOR_GOPATH):$(ROOT_GOPATH) gotestcover -gaego -coverprofile=cover.out -v ./src/...
+	GOPATH=$(VENDOR_GOPATH):$(ROOT_GOPATH) go test -v ./src/...
 
 deploy: test
 	goapp deploy ./src
