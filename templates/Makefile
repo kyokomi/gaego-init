@@ -1,20 +1,20 @@
-ROOT_GOPATH=$(shell pwd)
-VENDOR_GOPATH=$(shell pwd)/vendor
-GOPATH=$(VENDOR_GOPATH)
+APP_ROOT=appengine
+VENDOR_GOPATH=$(shell pwd)/$(APP_ROOT)/gopath/vendor
+APP_GOPATH=$(shell pwd)/$(APP_ROOT)/gopath
+RUN_GOPATH=$(APP_GOPATH):$(VENDOR_GOPATH)
 
 install:
-	mkdir -p $(VENDOR_GOPATH)
-	sh ./goapp.sh
-
-clean:
-	rm -rf $(VENDOR_GOPATH)
+	glide init
+	glide install
+	mkdir -p $(APP_ROOT)/gopath/vendor
+	ln -s $(shell pwd)/vendor/ $(VENDOR_GOPATH)/src
 
 run:
-	goapp serve ./src
+	GOPATH=$(RUN_GOPATH) goapp serve $(APP_ROOT)
 
-test:
-	GOPATH=$(VENDOR_GOPATH):$(ROOT_GOPATH) go test -v ./src/...
+clean-run:
+	GOPATH=$(RUN_GOPATH) goapp serve --clear_datastore $(APP_ROOT)
 
-deploy: test
-	goapp deploy ./src
+deploy:
+	GOPATH=$(RUN_GOPATH) goapp deploy $(APP_ROOT)
 

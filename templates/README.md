@@ -1,20 +1,6 @@
 {{ .AppName }}
 =================
 
-## Setup
-
-Edit the "install:" target of the Makefile.
-
-```
-install:
-	mkdir -p $(VENDOR_GOPATH)
-	gae get <dependencies package>
-```
-
-```
-$ make install
-```
-
 ## Run
 
 ```
