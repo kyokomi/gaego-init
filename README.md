@@ -26,4 +26,4 @@ kyokomi
 
 ## License
 
-MIT
+[MIT](https://github.com/kyokomi/gaego-init/blob/master/LICENSE)
