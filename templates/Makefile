@@ -4,17 +4,21 @@ APP_GOPATH=$(shell pwd)/$(APP_ROOT)/gopath
 RUN_GOPATH=$(APP_GOPATH):$(VENDOR_GOPATH)
 
 install:
-	glide init
-	glide install
+	go get -u github.com/golang/dep/...
 	mkdir -p $(APP_ROOT)/gopath/vendor
+	dep init
+	dep ensure -v -update
 	ln -s $(shell pwd)/vendor/ $(VENDOR_GOPATH)/src
 
-run:
+dep:
+	dep ensure -v
+
+run: dep
 	GOPATH=$(RUN_GOPATH) goapp serve $(APP_ROOT)
 
-clean-run:
+clean-run: dep
 	GOPATH=$(RUN_GOPATH) goapp serve --clear_datastore $(APP_ROOT)
 
-deploy:
+deploy: dep
 	GOPATH=$(RUN_GOPATH) goapp deploy $(APP_ROOT)
 
